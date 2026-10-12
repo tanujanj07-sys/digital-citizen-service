@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CivicConnect – Digital Citizen Service Platform</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-content">
+      <div class="brand">
+        <h1>🏛️ CivicConnect</h1>
+        <p>Digital Citizen Service Platform</p>
+      </div>
+      <nav class="nav">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#complaint" class="nav-link">Raise Complaint</a>
+        <a href="#track" class="nav-link">Track Application</a>
+        <a href="#admin" class="nav-link">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container">
+      <h2>One Platform for All Citizen Services</h2>
+      <p>
+        Apply for certificates, pay bills, check government schemes, raise civic complaints, and track your applications – all in one place.
+      </p>
+      <div class="hero-actions">
+        <a href="#services" class="btn">Explore Services</a>
+        <a href="#complaint" class="btn btn-outline">Raise a Complaint</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Available Services</h2>
+      <p class="section-desc">
+        Browse and access various citizen services offered by the local government.
+      </p>
+
+      <div class="services-grid">
+        <!-- Service cards -->
+        <div class="service-card">
+          <div class="service-icon">📄</div>
+          <h3>Certificates</h3>
+          <p>Birth, Death, Residence, Caste, Income certificates and more.</p>
+          <button class="btn btn-sm" data-service="certificates">View & Apply</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💧</div>
+          <h3>Utility Bills</h3>
+          <p>Pay water, electricity, property tax and other municipal bills.</p>
+          <button class="btn btn-sm" data-service="bills">Pay Bills</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🏘️</div>
+          <h3>Civic Complaints</h3>
+          <p>Roads, street lights, garbage, drainage, water supply issues.</p>
+          <button class="btn btn-sm" data-service="complaints">Raise Complaint</button>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">🎁</div>
+          <h3>Government Schemes</h3>
+          <p>Check eligibility and apply for central and state schemes.</p>
+          <button class="btn btn-sm" data-service="schemes">View Schemes</button>
+        </div>
+      </div>
+
+      <!-- Dynamic service details panel -->
+      <div id="serviceDetailsPanel" class="service-details-panel" style="display:none;">
+        <div class="panel-header">
+          <h3 id="serviceDetailsTitle">Service Details</h3>
+          <button id="closeServiceDetails" class="btn btn-outline btn-sm">Close</button>
+        </div>
+        <div id="serviceDetailsContent" class="panel-content">
+          <!-- Content injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Raise Complaint -->
+  <section id="complaint" class="section">
+    <div class="container">
+      <h2>Raise a Civic Complaint</h2>
+      <p class="section-desc">
+        Report local issues like potholes, garbage, street lights, water leakage, etc.
+      </p>
+
+      <form id="complaintForm" class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="complaintCategory">Category *</label>
+            <select id="complaintCategory" required>
+              <option value="">Select Category</option>
+              <option value="Road">Road / Pothole</option>
+              <option value="Street Light">Street Light</option>
+              <option value="Garbage">Garbage / Waste</option>
+              <option value="Water">Water Supply / Leakage</option>
+              <option value="Drainage">Drainage / Sewage</option>
+              <option value="Electricity">Electricity Issue</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="complaintLocation">Location / Area *</label>
+            <input type="text" id="complaintLocation" required placeholder="e.g., Shivaji Nagar, Kolhapur" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="complaintDescription">Description *</label>
+          <textarea id="complaintDescription" rows="4" required placeholder="Describe the issue in detail..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="citizenName">Your Name *</label>
+            <input type="text" id="citizenName" required placeholder="Full name" />
+          </div>
+
+          <div class="form-group">
+            <label for="citizenPhone">Phone Number *</label>
+            <input type="text" id="citizenPhone" required placeholder="e.g., 9876543210" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="citizenEmail">Email (optional)</label>
+          <input type="email" id="citizenEmail" placeholder="you@example.com" />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn">Submit Complaint</button>
+          <button type="reset" class="btn btn-outline">Reset</button>
+        </div>
+      </form>
+
+      <div id="complaintSuccess" class="success-msg" style="display:none;">
+        <p>
+          ✅ Your complaint has been registered successfully!
+          <br />
+          Complaint ID: <strong id="newComplaintId"></strong>. Please note this ID to track your complaint.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Track Application -->
+  <section id="track" class="section">
+    <div class="container">
+      <h2>Track Your Application / Complaint</h2>
+      <p class="section-desc">
+        Enter your application/complaint ID to check the current status.
+      </p>
+
+      <div class="track-box">
+        <div class="form-row">
+          <div class="form-group" style="flex:2;">
+            <label for="trackId">Application / Complaint ID *</label>
+            <input type="text" id="trackId" placeholder="e.g., COMP-1725432101234" />
+          </div>
+          <div class="form-group" style="flex:1; display:flex; align-items:flex-end;">
+            <button id="trackBtn" class="btn" style="width:100%;">Track</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="trackResult" class="track-result" style="display:none;">
+        <!-- Result injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Admin View (Demo) -->
+  <section id="admin" class="section">
+    <div class="container">
+      <h2>Admin Dashboard (Demo)</h2>
+      <p class="section-desc">
+        View all complaints and applications. In a real system, this would be protected by login.
+      </p>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="complaints">Complaints</button>
+        <button class="admin-tab" data-tab="applications">Applications</button>
+      </div>
+
+      <div id="adminComplaints" class="admin-panel">
+        <h3>All Citizen Complaints</h3>
+        <div id="adminComplaintsList" class="admin-list">
+          <!-- Complaints list -->
+        </div>
+      </div>
+
+      <div id="adminApplications" class="admin-panel" style="display:none;">
+        <h3>All Service Applications</h3>
+        <div id="adminApplicationsList" class="admin-list">
+          <!-- Applications list -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 CivicConnect. Built with HTML, CSS, and JavaScript.</p>
+      <p class="note">
+        Demo version: data is stored only in your browser (localStorage).
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
